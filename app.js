@@ -20,6 +20,15 @@ const bookingRouter = require('./routes/bookingRoutes');
 // App starts
 const app = express();
 
+app.use('*', function (req, res, next) {
+  if (req.protocol == "https")
+    res.redirect('http://' + req.headers.host + req.url);
+  else
+    next()
+  // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+  // res.redirect('https://example.com' + req.url);
+})
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 

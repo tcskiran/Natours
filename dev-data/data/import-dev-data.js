@@ -15,14 +15,16 @@ dotenv.config({ path: './config.env' });
 const DB = process.env.DATABASE_LOCAL;
 
 mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
+.connect(DB, {
+  useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
   })
-  .then(() => console.log('DB connection succefull'));
-
+  .then(() => {
+    console.log('DB connection successfull')
+  });
+  
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
 const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 const reviews = JSON.parse(
@@ -58,3 +60,4 @@ if (process.argv[2] === '--import') {
 } else if (process.argv[2] === '--delete') {
   deleteData();
 }
+module.exports = importData;
